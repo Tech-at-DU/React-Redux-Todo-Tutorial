@@ -43,4 +43,4 @@ By the end of this tutorial, you will be able to:
 
 ---
 
-🚀 Now that you understand the purpose of the tutorial, let’s move on to **setting up the project**! 🚀
+🚀 Now that you understand the purpose of the tutorial, let’s move on to **[Project Setup](2-project-setup.md)**! 🚀

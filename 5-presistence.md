@@ -92,4 +92,4 @@ store.subscribe(() => {
 
 ---
 
-🚀 Now our To-Do List persists across page reloads! Next, we will add filters and sorting options to organize tasks more effectively. 🚀
+🚀 Now our To-Do List persists across page reloads! Next, we will add **[Filtering Tasks](6-filtering-and-sorting.md)** to organize tasks more effectively. 🚀

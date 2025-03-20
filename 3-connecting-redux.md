@@ -163,4 +163,4 @@ export default App;
 
 ---
 
-🚀 Now Redux is fully connected to React! Next, we will enhance the UI and add interactivity. Let me know if you’d like to move forward! 🚀
+🚀 Now Redux is fully connected to React! Next, we will **[Enhancing the UI and add interactivity](4-enhancing-ui.md)**!

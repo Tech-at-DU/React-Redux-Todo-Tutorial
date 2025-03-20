@@ -179,4 +179,4 @@ Then, update the list item to include an id:
 
 ---
 
-🚀 Now our To-Do List has improved UI and animations! Next, we will implement state persistence so tasks remain after a page refresh. 🚀
+🚀 Now our To-Do List has improved UI and animations! Next, we will implement **[State Persistence](5-presistence.md)** so tasks remain after a page refresh. 🚀

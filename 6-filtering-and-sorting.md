@@ -211,4 +211,4 @@ export default App;
 
 ---
 
-🚀 Now our To-Do List supports filtering! Next, we will add sorting options so users can reorder tasks based on date or completion status. 🚀
+🚀 Now our To-Do List supports filtering! Next, we will add **[Sorting Task](7-sorting.md)** options so users can reorder tasks based on date or completion status. 🚀

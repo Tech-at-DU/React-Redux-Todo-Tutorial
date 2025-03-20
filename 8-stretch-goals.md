@@ -207,4 +207,4 @@ test("should add a new todo", () => {
 
 ---
 
-🚀 **Now our To-Do List has advanced features!** Next, we will wrap up the tutorial with **Final Thoughts & Next Steps**. 🚀
+🚀 **Now our To-Do List has advanced features!** Next, we will wrap up the tutorial with **[Final Thoughts & Next Steps](9-final-thoughs.md)**. 🚀

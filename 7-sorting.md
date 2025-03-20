@@ -209,4 +209,4 @@ function App() {
 export default App;
 ```
 
-🚀 **Now our To-Do List supports sorting!** Next, we will add **stretch goals**, such as due dates and priorities. 🚀
+🚀 **Now our To-Do List supports sorting!** Next, we will add **[Stretch Goals](8-stretch-goals.md)**, such as due dates and priorities. 🚀

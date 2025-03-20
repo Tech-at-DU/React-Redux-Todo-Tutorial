@@ -134,3 +134,7 @@ export default todoSlice.reducer;
   -	`deleteTodo` – Removes a task from the list.
 
 **📌 AI Debugging Prompt:** “What happens if I try to modify state directly inside a reducer?”
+
+---
+
+Now that your project is setup, move on to *[Connecting Redux to React](3-connecting-redux.md)**!
