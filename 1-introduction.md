@@ -3,6 +3,12 @@
 ## **Introduction**
 Managing **application state** is a critical skill in React development. In this tutorial, you will build a **To-Do List application** using **React and Redux Toolkit**, learning how to efficiently manage state in a structured way.
 
+📌 **AI Prompt:** *"What is Redux?"*
+
+📌 **AI Prompt:** *"How is Redux different from useState?"*
+
+📌 **AI Prompt:** *"What is Redux Toolkit?"*
+
 ### **Why Use Redux for a To-Do List?**
 A basic to-do list can be built using React’s `useState`, but as applications grow, managing state across multiple components becomes complex. **Redux Toolkit** provides a centralized way to manage state, ensuring:
 - ✅ A **single source of truth** for to-dos across components.  

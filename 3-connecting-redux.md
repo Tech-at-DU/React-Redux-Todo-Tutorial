@@ -11,25 +11,37 @@ Redux needs to be available **globally** in our application. We do this by **wra
 Open `src/index.js` and update it:
 
 ```js
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+// 1️⃣ Import Provider and store
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import App from "./App";
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    {/* 2️⃣ Wrap App in Provider component */}
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
 ```
 
 **📌 What This Does:**
 - ✅ Provides access to the Redux store for the entire app.
 - ✅ Ensures all components can use Redux state via hooks.
 
-**📌 AI Debugging Prompt:** “What does <Provider> do in a Redux application? Why is it necessary?”
+**📌 AI Debugging Prompt:** “What does `<Provider>` do in a Redux application? Why is it necessary?”
 
 --- 
 
@@ -71,11 +83,13 @@ export default TodoList;
 ```
 
 **📌 What This Does:**
-- ✅ useSelector retrieves todos from Redux state.
-- ✅ useDispatch allows us to toggle completion and delete tasks.
+- ✅ `useSelector` retrieves todos from Redux state.
+- ✅ `useDispatch` allows us to toggle completion and delete tasks.
 - ✅ Uses checkboxes to mark tasks complete and buttons to delete tasks.
 
-**📌 AI Debugging Prompt:** “Why do we use useSelector instead of passing props?”
+**📌 AI Prompt:** “Why do we use `useSelector` instead of passing props?”
+
+**📌 AI Prompt:** “What is `useDispatch` and what does it return?”
 
 ---
 
@@ -120,15 +134,15 @@ export default AddTodo;
 ```
 
 **📌 What This Does:**
-- ✅ Uses local state (useState) to track input text.
-- ✅ Calls dispatch(addTodo(text)) to add a new to-do when the form is submitted.
+- ✅ Uses local state (`useState`) to track input text.
+- ✅ Calls `dispatch(addTodo(text))` to add a new to-do when the form is submitted.
 - ✅ Clears the input field after adding a task.
 
-**📌 AI Debugging Prompt:** “What happens if you forget to call dispatch when using Redux?”
+**📌 AI Prompt:** “What happens if you forget to call `dispatch` when using Redux?”
 
 ---
 
-## 4️⃣ Update App.js to Include the Components
+## 4️⃣ Update `App.js` to Include the Components
 
 Now that we have our to-do list and add-to-do form, we need to import them into `App.js`.
 
@@ -160,6 +174,8 @@ export default App;
 - ✅ Includes <TodoList /> to list tasks.
 
 **📌 AI Debugging Prompt:** “What happens if useSelector returns undefined? How can you debug this?”
+
+**📌 AI Prompt:** “What is the advantage of using Redux. It seems like I could make this app with state and props?” (You might have to inlcude some code with this prompt.)
 
 ---
 

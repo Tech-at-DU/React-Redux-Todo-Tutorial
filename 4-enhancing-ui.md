@@ -54,29 +54,33 @@ li {
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
 .completed {
   text-decoration: line-through;
   color: gray;
 }
+
+.removed {
+  opacity: 0;
+  transform: scale(0.8);
+}
 ```
 
 **📌 What This Does:**
 - ✅ Styles buttons, inputs, and the list layout.
 - ✅ Adds smooth background transitions for better UX.
-- ✅ Highlights completed tasks using the .completed class.
+- ✅ Highlights completed tasks using the `.completed` class.
 
 ---
 
-## 2️⃣ Update Components to Use Styling
+## **2️⃣ Update Components to Use Styling**
 
-### Step 2: Import CSS in `App.js`
-
+### **Step 2: Import CSS in `App.js`**
 Modify `App.js` to include the styles:
 
-```JS
+```js
 import "./App.css";
 ```
 
@@ -84,31 +88,42 @@ Now, let’s update the `TodoList` to apply the completed task styles.
 
 ---
 
-## Step 3: Modify `TodoList.js`
+## **3️⃣ Modify `TodoList.js`**
 
-Update `TodoList.js` to apply styles dynamically:
+Update `TodoList.js` to apply styles dynamically and properly handle deletions:
 
-```JS
-import React from "react";
+```js
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleComplete, deleteTodo } from "../redux/todoSlice";
-import "../App.css";
 
 const TodoList = () => {
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
+  const [removingId, setRemovingId] = useState(null);
+
+  const handleDelete = (id) => {
+    setRemovingId(id);
+    setTimeout(() => {
+      dispatch(deleteTodo(id));
+      setRemovingId(null);
+    }, 300);
+  };
 
   return (
     <ul>
       {todos.map((todo) => (
-        <li key={todo.id} className={todo.completed ? "completed" : ""}>
+        <li
+          key={todo.id}
+          className={`${todo.completed ? "completed" : ""} ${removingId === todo.id ? "removed" : ""}`}
+        >
           <input
             type="checkbox"
             checked={todo.completed}
             onChange={() => dispatch(toggleComplete(todo.id))}
           />
           {todo.text}
-          <button onClick={() => dispatch(deleteTodo(todo.id))}>❌</button>
+          <button onClick={() => handleDelete(todo.id)}>❌</button>
         </li>
       ))}
     </ul>
@@ -119,64 +134,15 @@ export default TodoList;
 ```
 
 **📌 What This Does:**
-- ✅ Uses CSS classes (completed) to visually style completed tasks.
+- ✅ Ensures **smooth removal animation** before actually deleting the task.
 - ✅ Keeps task items styled properly.
 
 **📌 AI Debugging Prompt:** “Why might my styles not be applying correctly? How can I check if the CSS is loaded?”
 
----
+**📌 AI Prompt:** “Explain the process of deleting a todo item in the code sample: <include the code above>”
 
-## 3️⃣ Add Task Animations for Better UX
-
-To enhance interactivity, let’s add CSS transitions.
-
-### Step 4: Modify `App.css` to Include Transitions
-
-Update `App.css` with the following:
-
-```CSS
-li {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-li.removed {
-  opacity: 0;
-  transform: scale(0.8);
-}
-```
-
-Now, update `TodoList.js` to use the removed animation.
-
-## Step 5: Update `TodoList.js` to Animate Deletions
-
-Modify `TodoList.js` to temporarily apply the removal effect before deleting a task:
-
-```JS
-const handleDelete = (id) => {
-  const item = document.getElementById(`todo-${id}`);
-  if (item) {
-    item.classList.add("removed");
-    setTimeout(() => dispatch(deleteTodo(id)), 300);
-  } else {
-    dispatch(deleteTodo(id));
-  }
-};
-```
-
-Then, update the list item to include an id:
-
-```js
-<li key={todo.id} id={`todo-${todo.id}`} className={todo.completed ? "completed" : ""}>
-```
-
-**📌 What This Does:**
-- ✅ Smoothly animates task deletion.
-- ✅ Prevents instant disappearance for better UX.
-
-**📌 AI Debugging Prompt:** “Why doesn’t my animation work on task deletion?”
+**📌 AI Prompt:** “What is a stale closure? Does the code provided have the potential for 'stale closure'? <include the code above>”
 
 ---
 
-🚀 Now our To-Do List has improved UI and animations! Next, we will implement **[State Persistence](5-presistence.md)** so tasks remain after a page refresh. 🚀
+🚀 Now our To-Do List has improved UI and animations while following **React best practices**! Next, we will implement **[State Persistence](5-presistence.md)** so tasks remain after a page refresh. 🚀

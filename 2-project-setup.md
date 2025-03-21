@@ -38,8 +38,8 @@ npm install @reduxjs/toolkit react-redux
 ```
 
 **📌 What This Does:**
-- ✅ @reduxjs/toolkit – Simplifies Redux state management.
-- ✅ react-redux – Provides the necessary tools to connect Redux with React.
+- ✅ `@reduxjs/toolkit` – Simplifies Redux state management.
+- ✅ `react-redux` – Provides the necessary tools to connect Redux with React.
 
 **📌 AI Debugging Prompt:** “How can I verify that Redux Toolkit is installed correctly?”
 
@@ -82,10 +82,12 @@ export const store = configureStore({
 ```
 
 **📌 Explanation:**
-- ✅ configureStore() – Creates a Redux store with minimal setup.
-- ✅ todoReducer – Handles the to-do list state (we’ll create this next).
+- ✅ `configureStore()` – Creates a Redux store with minimal setup.
+- ✅ `todoReducer` – Handles the to-do list state (we’ll create this next).
 
-**📌 AI Debugging Prompt:** “Why do we pass an object to `configureStore` instead of manually combining reducers?”
+**📌 AI Prompt:** “I'm using redux toolkit, what is the store?”
+
+**📌 AI Prompt:** “What is a reducer?”
 
 ---
 
@@ -127,14 +129,20 @@ export default todoSlice.reducer;
 
 **📌 What This Does:**
 - ✅ Defines a Redux slice called "todos".
-- ✅ Stores tasks in an array with { id, text, completed }.
+- ✅ Stores tasks in an array with `{ id, text, completed }`.
 - ✅ Adds reducers for:
   -	`addTodo` – Adds a new task to the list.
   -	`toggleComplete` – Marks a task as complete/incomplete.
   -	`deleteTodo` – Removes a task from the list.
 
-**📌 AI Debugging Prompt:** “What happens if I try to modify state directly inside a reducer?”
+**📌 AI Prompt:** “I'm using Redux Toolkit, what is a slice?”
+
+**📌 AI Prompt:** “What is initial state?”
+
+**📌 AI Prompt:** “In a slice, what does the reducer do?”
+
+**📌 AI Prompt:** “Explain this code block line by line. <include the code block above>”
 
 ---
 
-Now that your project is setup, move on to *[Connecting Redux to React](3-connecting-redux.md)**!
+Now that your project is setup, move on to **[Connecting Redux to React](3-connecting-redux.md)**!

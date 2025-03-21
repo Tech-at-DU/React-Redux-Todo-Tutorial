@@ -1,5 +1,7 @@
 # **Stretch Goals: Expanding the To-Do List App**
 
+The ideas here are only partial solutions! You will need to use the ideas from that you have learned in this tutorial to make them fully functional. Use the AI to ask questions about solving these solution if you get stuck! 
+
 Now that our **To-Do List app is fully functional**, let’s explore **advanced features** to make it more robust and useful. These stretch goals will:
 - ✅ Introduce **due dates** and **priorities** for tasks.  
 - ✅ Allow users to **categorize** tasks into different lists.  
@@ -16,42 +18,52 @@ Open `redux/todoSlice.js` and update the `initialState` and `addTodo` reducer:
 
 ```js
 const initialState = [
-  { id: 1, text: "Learn Redux", completed: false, dueDate: "2024-12-31" },
-];
-
-const todoSlice = createSlice({
-  name: "todos",
-  initialState,
-  reducers: {
-    addTodo: (state, action) => {
-      state.push({
-        id: Date.now(),
-        text: action.payload.text,
-        completed: false,
-        dueDate: action.payload.dueDate, // Store due date
-      });
-    },
+  { 
+    id: 1, 
+    text: "Learn Redux", 
+    completed: false, 
+    dueDate: "2024-12-31" // 1️⃣ Include a date in the default todo
   },
-});
+];
+```
+
+```JS
+// Update addTodo
+addTodo: (state, action) => {
+  state.push({
+    id: Date.now(),
+    text: action.payload.text,
+    completed: false,
+    dueDate: action.payload.dueDate, // 2️⃣ Store due date
+  });
+},
 ```
 
 📌 **What This Does:**  
 - ✅ Adds a `dueDate` field to each task.  
-- ✅ Allows users to specify a deadline when adding tasks.  
+- ✅ Allows users to specify a deadline when adding tasks. 
+- ‼ Notice we are getting `text` and `dueDate` from `payload`. When before `text` was stored as `payload`!
+
+**📌 AI Prompt:** "Explain the code block: <include the code above>".
 
 ### **Step 2: Modify `AddTodo.js` to Accept Due Dates**
 Update `AddTodo.js` to include a date input field:
 
+Store the date for a form element:
 ```js
 const [dueDate, setDueDate] = useState("");
+```
 
+Add an input for the date: 
+```js
 <form onSubmit={handleSubmit}>
   <input
     type="text"
     value={text}
     onChange={(e) => setText(e.target.value)}
   />
-  <input
+  {/* Add Date picker */}
+  <input 
     type="date"
     value={dueDate}
     onChange={(e) => setDueDate(e.target.value)}
@@ -60,8 +72,22 @@ const [dueDate, setDueDate] = useState("");
 </form>
 ```
 
+Update `handleSubmit`:
+```JS
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (text.trim()) {
+    // Wrap text and dueDate in an object
+    dispatch(addTodo({ text, dueDate }));
+    setText("");
+  }
+};
+```
+
 📌 **What This Does:**  
-- ✅ Allows users to **pick a due date** when creating a task.  
+- ✅ Allows users to **pick a due date** when creating a task. 
+
+**📌 AI Prompt:** "Why do I need to wrap text and dueDate in an object? <include the code above>".
 
 ---
 
@@ -71,7 +97,13 @@ Update `initialState` to include a **priority** field:
 
 ```js
 const initialState = [
-  { id: 1, text: "Learn Redux", completed: false, priority: "High" },
+  { 
+    id: 1, 
+    text: "Learn Redux", 
+    completed: false, 
+    dueDate: "2024-12-31",
+    priority: 'High' // 1️⃣ Include a date in the default todo
+  }
 ];
 ```
 
@@ -146,7 +178,9 @@ addTodo: (state, action) => {
 ```
 
 📌 **What This Does:**  
-- ✅ Users can **organize tasks** into meaningful lists.  
+- ✅ Users can **organize tasks** into meaningful lists. 
+
+**Stretch stretch goal:** Make the category list customizable! 
 
 ---
 
@@ -169,6 +203,8 @@ const preloadedState = { todos: await fetchTodos() };
 📌 **What This Does:**  
 - ✅ Loads tasks **from an external API** instead of LocalStorage.  
 - ✅ Can be expanded to support **real-time updates**.  
+
+To solve this problem you'll need to create a database and a localhost server to store your todo items. 
 
 ---
 
@@ -204,6 +240,14 @@ test("should add a new todo", () => {
 
 📌 **What This Does:**  
 - ✅ Ensures **Redux reducers work as expected**.  
+
+📌 **AI Prompt:** "What are unit tests and why do we use them?"
+
+📌 **AI Prompt:** "What is Jest?"
+
+📌 **AI Prompt:** "How do I define and run unit tests?"
+
+📌 **AI Prompt:** "When writing unit tests, what should I test?"
 
 ---
 

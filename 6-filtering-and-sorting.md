@@ -57,14 +57,14 @@ import todoReducer from "./todoSlice";
 import filtersReducer from "./filtersSlice";
 import { loadState, saveState } from "./localStorage";
 
-const preloadedState = loadState();
+const preloadedState = loadState() || { todos: [] };
 
 export const store = configureStore({
   reducer: {
     todos: todoReducer,
     filters: filtersReducer,
   },
-  preloadedState,
+  preloadedState, 
 });
 
 store.subscribe(() => {
@@ -117,7 +117,7 @@ export default FilterControls;
 - ✅ Uses useDispatch to update Redux state when the filter changes.
 - ✅ Uses useSelector to track current filter in Redux state.
 
-**📌 AI Debugging Prompt:** “Why does changing the filter update the UI instantly?”
+**☝️Note!** You won't see any changes at this stage, there is more work to be done before the filters will function!
 
 ---
 
@@ -130,17 +130,26 @@ Now, let’s modify `TodoList.js` to only display tasks based on the selected fi
 Open `TodoList.js` and update it:
 
 ```JS
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleComplete, deleteTodo } from "../redux/todoSlice";
-import { FILTERS } from "../redux/filtersSlice";
-import "../App.css";
+import { FILTERS } from "../redux/filtersSlice"; // 1️⃣
 
 const TodoList = () => {
-  const todos = useSelector((state) => state.todos);
-  const filter = useSelector((state) => state.filters);
+  const todos = useSelector((state) => state.todos); 
+  const filter = useSelector((state) => state.filters); // 2️⃣
   const dispatch = useDispatch();
+  const [removingId, setRemovingId] = useState(null);
 
+  const handleDelete = (id) => {
+    setRemovingId(id);
+    setTimeout(() => {
+      dispatch(deleteTodo(id));
+      setRemovingId(null);
+    }, 300);
+  };
+
+  // 3️⃣
   const filteredTodos = todos.filter((todo) => {
     if (filter === FILTERS.ACTIVE) return !todo.completed;
     if (filter === FILTERS.COMPLETED) return todo.completed;
@@ -149,15 +158,18 @@ const TodoList = () => {
 
   return (
     <ul>
-      {filteredTodos.map((todo) => (
-        <li key={todo.id} className={todo.completed ? "completed" : ""}>
+      {filteredTodos.map((todo) => ( // 4️⃣ Just update this line!
+        <li
+          key={todo.id}
+          className={`${todo.completed ? "completed" : ""} ${removingId === todo.id ? "removed" : ""}`}
+        >
           <input
             type="checkbox"
             checked={todo.completed}
             onChange={() => dispatch(toggleComplete(todo.id))}
           />
           {todo.text}
-          <button onClick={() => dispatch(deleteTodo(todo.id))}>❌</button>
+          <button onClick={() => handleDelete(todo.id)}>❌</button>
         </li>
       ))}
     </ul>
@@ -171,13 +183,13 @@ export default TodoList;
 - ✅ Filters the to-do list based on the selected option.
 - ✅ Updates the list instantly when the filter changes.
 
-**📌 AI Debugging Prompt:** “Why do tasks disappear when selecting a filter?”
+**☝️Note!** A little more work needs to be done before this change will function. 
 
 ---
 
 ## 5️⃣ Update `App.js` to Include Filters
 
-Finally, let’s import FilterControls.js into App.js.
+Finally, let’s import `FilterControls.js` into `App.js`.
 
 ### Step 5: Modify `App.js` to Include Filters
 
@@ -187,14 +199,16 @@ Open `App.js` and update it:
 import React from "react";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
-import FilterControls from "./components/FilterControls";
+import FilterControls from "./components/FilterControls"; // 1️⃣
+
+import './App.css'
 
 function App() {
   return (
     <div>
       <h1>Redux To-Do List</h1>
       <AddTodo />
-      <FilterControls />
+      <FilterControls /> {/* 2️⃣ */}
       <TodoList />
     </div>
   );
@@ -207,8 +221,12 @@ export default App;
 - ✅ Adds filter controls above the to-do list.
 - ✅ Allows users to change filters easily.
 
+**📌 AI Debugging Prompt:** “Why does changing the filter update the UI instantly?”
+
+**📌 AI Debugging Prompt:** “Why do tasks disappear when selecting a filter?”
+
 **📌 AI Debugging Prompt:** “Why does my filter selection reset after a refresh?”
 
 ---
 
-🚀 Now our To-Do List supports filtering! Next, we will add **[Sorting Task](7-sorting.md)** options so users can reorder tasks based on date or completion status. 🚀
+🚀 Now our To-Do List supports filtering! Next, we will add **[Sorting Tasks](7-sorting.md)** options so users can reorder tasks based on date or completion status. 🚀

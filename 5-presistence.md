@@ -25,8 +25,8 @@ export const saveState = (state) => {
 
 export const loadState = () => {
   try {
-    const savedState = localStorage.getItem("todos");
-    return savedState ? JSON.parse(savedState) : undefined;
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? { todos: JSON.parse(savedTodos) } : undefined; // Ensure it returns an object
   } catch (error) {
     console.error("Error loading state from LocalStorage:", error);
     return undefined;
@@ -39,7 +39,11 @@ export const loadState = () => {
 - ✅ `loadState()` – Loads previously saved state when the app starts.
 - ✅ Handles errors in case LocalStorage fails.
 
-**📌 AI Debugging Prompt:** “Why do we use JSON.stringify and JSON.parse when working with LocalStorage?”
+**📌 AI Prompt:** “What is 'localStorage'?”
+
+**📌 AI Prompt:** “What can localStorage be used for? Does it have any limitations?”
+
+**📌 AI Prompt:** “Why do we use JSON.stringify and JSON.parse when working with LocalStorage?”
 
 ---
 
@@ -56,17 +60,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import todoReducer from "./todoSlice";
 import { loadState, saveState } from "./localStorage";
 
-const preloadedState = loadState();
+const preloadedState = loadState() || { todos: [] }; 
 
 export const store = configureStore({
   reducer: {
     todos: todoReducer,
   },
-  preloadedState, // Load saved state
+  preloadedState, 
 });
 
 store.subscribe(() => {
-  saveState(store.getState().todos);
+  saveState(store.getState().todos); // Still saving only the todos array
 });
 ```
 
@@ -74,7 +78,9 @@ store.subscribe(() => {
 - ✅ Loads the previous state from LocalStorage when Redux starts.
 - ✅ Automatically saves state whenever Redux state updates.
 
-**📌 AI Debugging Prompt:** “Why do we use `store.subscribe` instead of saving state inside reducers?”
+**📌 AI Prompt:** “What is `store.subscribe` doing here? <inlcude code above>”
+
+**📌 AI Prompt:** “Where does `preloadedState` come from?”
 
 ---
 
