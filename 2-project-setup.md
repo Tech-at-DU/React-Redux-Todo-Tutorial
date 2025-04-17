@@ -20,6 +20,8 @@ cd todo-list
 npm start
 ```
 
+**Or use another React starter project, like Vite**
+
 **📌 What This Does:**
 - ✅ Creates a new React project named todo-list.
 - ✅ Moves into the project folder.
